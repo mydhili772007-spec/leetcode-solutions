@@ -1,4 +1,4 @@
-// Last updated: 14/06/2026, 20:58:02
+// Last updated: 14/06/2026, 20:58:37
 1/*
 2// Definition for a Node.
 3class Node {
@@ -23,31 +23,28 @@
 22
 23    public void dfs(Node node, Node cloneNode, Map<Node, Node> map) {
 24        for (Node neighbor : node.neighbors) {
-25
-26            // If neighbor is not cloned yet
-27            if (!map.containsKey(neighbor)) {
-28                Node cloneNeighbor = new Node(neighbor.val);
-29                map.put(neighbor, cloneNeighbor);
-30
-31                cloneNode.neighbors.add(cloneNeighbor);
-32                dfs(neighbor, cloneNeighbor, map);
-33            } 
-34            // If already cloned, reuse it
-35            else {
-36                cloneNode.neighbors.add(map.get(neighbor));
-37            }
-38        }
-39    }
+25            if (!map.containsKey(neighbor)) {
+26                Node cloneNeighbor = new Node(neighbor.val);
+27                map.put(neighbor, cloneNeighbor);
+28
+29                cloneNode.neighbors.add(cloneNeighbor);
+30                dfs(neighbor, cloneNeighbor, map);
+31            }
+32            else {
+33                cloneNode.neighbors.add(map.get(neighbor));
+34            }
+35        }
+36    }
+37
+38    public Node cloneGraph(Node node) {
+39        if (node == null) return null;
 40
-41    public Node cloneGraph(Node node) {
-42        if (node == null) return null;
-43
-44        map = new HashMap<>();
+41        map = new HashMap<>();
+42
+43        Node cloneNode = new Node(node.val);
+44        map.put(node, cloneNode);
 45
-46        Node cloneNode = new Node(node.val);
-47        map.put(node, cloneNode);
-48
-49        dfs(node, cloneNode, map);
-50        return cloneNode;
-51    }
-52}
+46        dfs(node, cloneNode, map);
+47        return cloneNode;
+48    }
+49}
